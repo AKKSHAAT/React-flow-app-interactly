@@ -51,6 +51,10 @@ function NodeFlow() {
     setNodes([...nodes, node]);
   };
 
+  const deleteNode = (id)=>{
+    setNodes((prevNodes) => prevNodes.filter((node) => node.id !== id));
+  }
+
   return (
     <div style={{ width: '99vw', height: '100vh' }}>
       <AddNodeButton onClick={addNote} />
@@ -60,6 +64,7 @@ function NodeFlow() {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
+        onNodeDoubleClick={(event, node) => deleteNode(node.id)}
       >
         <Controls />
         <MiniMap nodeColor={'blue'}
