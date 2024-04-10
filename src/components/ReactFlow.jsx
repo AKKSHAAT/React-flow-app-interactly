@@ -3,8 +3,6 @@ import ReactFlow, {
   MiniMap,
   Controls,
   Background,
-  useNodesState,
-  useEdgesState,
   addEdge,
   applyNodeChanges,
   applyEdgeChanges,
@@ -14,10 +12,8 @@ import 'reactflow/dist/style.css';
 import AddNodeButton from './AddNodeButton';
 
 const initialEdges = [{ id: 'e1-2', source: '1', target: '2',  animated: true}];
-const initialNodes = [
-  { id: '1', position: { x: 400, y: 100 }, data: { label: '1' } },
-  { id: '2', position: { x: 400, y: 200 }, data: { label: '2' } },
-];
+const initialNodes = [];
+
 
 function NodeFlow() {
   const [nodes, setNodes] = useState(initialNodes);
@@ -42,10 +38,9 @@ function NodeFlow() {
     console.log("click");
     const xOffset = 100; // Horizontal offset between nodes
     const yOffset = 100; // Vertical offset between nodes
-    // const maxX = Math.floor(Math.random() * xOffset)
-    const maxX = Math.max(...nodes.map(node => node.position.x)) + xOffset;
-    const maxY = Math.max(...nodes.map(node => node.position.y)) + yOffset;
-
+  
+    const maxX = nodes.length === 0 ? 400 :  Math.max(...nodes.map(node => node.position.x)) + xOffset;
+    const maxY = nodes.length === 0 ? 400 :  Math.max(...nodes.map(node => node.position.y)) + yOffset;
     const node = {
       id: `node-${nodes.length + 1}`,
       position: { x: maxX, y: maxY },
